@@ -1,12 +1,11 @@
-import express, { Express, Request, Response } from "express";
+import express, { Request, Response } from "express";
+import MovieModel from "../model/MovieModel";
 
-const app: Express = express();
-const port = process.env.PORT;
+const MovieRouter = express.Router();
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+MovieRouter.get("/", async (req: Request, res: Response) => {
+  const result = await MovieModel.find();
+  res.status(200).send(result);
 });
 
-app.listen(port, () => {
-  console.log(`⚡️ [server]: Server is running at http://localhost:${port}`);
-});
+export default MovieRouter;
